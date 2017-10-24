@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "约糖",
+  "version": "1.0",
+  "description": "查看我的电脑当前的公网IP",
+  "icons": {
+    "16": "images/icon.png",
+    "48": "images/icon.png",
+    "128": "images/icon.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "19": "images/icon.png",
+      "38": "images/icon.png"
+    },
+    "default_title": "约糖",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": [
+      "js/axios.min.js",
+      "js/axios.config.js",
+      "js/background.js"
+    ]
+  },
+  "options_page": "options.html",
+  "permissions": [
+    "notifications",
+    "http://127.0.0.1:4000/"
+  ]
+}
