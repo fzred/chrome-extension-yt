@@ -1,4 +1,10 @@
-axios.defaults.baseURL = localStorage.apiBase || 'http://127.0.0.1:4000/api/'
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.type === 'UPDATE_API_BASE') {
+    localStorage.apiBase = request.data
+    axios.defaults.baseURL = localStorage.apiBase + 'api/'
+  }
+})
+axios.defaults.baseURL = (localStorage.apiBase || 'http://127.0.0.1:4000/') + 'api/'
 axios.defaults.headers['Request-With'] = 'xhr'
 axios.interceptors.request.use(function (config) {
   if (config.params) {

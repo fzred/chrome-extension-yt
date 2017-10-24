@@ -1,32 +1,31 @@
-function show(text) {
-  new Notification('hahahahha-yt', {
+function show({ title, body }) {
+  new Notification(title, {
     icon: 'images/icon.png',
-    body: text,
+    body,
   })
 }
 
-(async function(){
-  const { data } = await axios.get('user.jhd.userExtends.get.admin.condition', {
-    params: {
-      condition: {
-        pageSize: 20,
-        pageIndex: 1,
-        role: 1,
-        status: "4"
+(function () {
+  async function listenVideoNum() {
+    const { data } = await axios.get('user.jhd.userExtends.get.admin.condition', {
+      params: {
+        condition: {
+          pageSize: 20,
+          pageIndex: 1,
+          role: 1,
+          status: "4"
+        }
       }
+    })
+    const videoNum = data.data.resultCount
+    if ((localStorage.videoNum == undefined && videoNum > 0) || localStorage.videoNum < videoNum) {
+      show({ title: `${videoNum}个认证视频未审核` })
     }
-  })
-  show(data.data.resultCount)
+    localStorage.videoNum = data.data.resultCount
+    chrome.runtime.sendMessage({ type: 'UPDATE_VIDEO_NUM', data: localStorage.videoNum })
+    chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
+    chrome.browserAction.setBadgeText({ text: `${videoNum}` })
+  }
+  listenVideoNum()
+  setInterval(listenVideoNum, 5000)
 })()
-
-// var xhr = new XMLHttpRequest();
-// xhr.open("GET", `${localStorage.apiBase}user.jhd.userExtends.get.admin.condition?encode=%7B%22condition%22:%7B%22pageSize%22:1,%22pageIndex%22:1,%22role%22:1,%22registerTimeStart%22:%22%22,%22registerTimeEnd%22:%22%22,%22telNum%22:%22%22,%22nickName%22:%22%22,%22status%22:%224%22%7D%7D`, true)
-// xhr.onreadystatechange = function () {
-//   if (xhr.readyState == 4) {
-//     const { data } = JSON.parse(xhr.responseText)
-//     // show(data.resultCount)
-//   }
-// }
-// xhr.send()
-
-// show()
