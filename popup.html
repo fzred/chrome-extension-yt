@@ -12,7 +12,8 @@
 
 <body>
   <div id="app">
-    <div class="tips-item">未审核的认证视频：{{ videoNum }}</div>
+    <div v-if="!isLogin" class="notLogin">未登录</div>
+    <div v-else class="tips-item">未审核的认证视频：{{ videoNum }}</div>
     <button @click="openSite" class="pure-button pure-button-primary">新标签打开网站</button>
   </div>
   <script src="js/vue.min.js"></script>

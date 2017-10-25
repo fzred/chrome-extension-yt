@@ -17,6 +17,15 @@ function show({ title, body }) {
         }
       }
     })
+    if (data.code == "401") {
+      // 未登陆
+      localStorage.isLogin = false
+      chrome.runtime.sendMessage({ type: 'UPDATE_IS_LOGIN', data: localStorage.isLogin })
+      return
+    }
+    localStorage.isLogin = true
+    chrome.runtime.sendMessage({ type: 'UPDATE_IS_LOGIN', data: localStorage.isLogin })
+
     const videoNum = data.data.resultCount
     if ((localStorage.videoNum == undefined && videoNum > 0) || localStorage.videoNum < videoNum) {
       show({ title: `${videoNum}个认证视频未审核` })

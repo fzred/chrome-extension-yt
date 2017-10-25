@@ -1,12 +1,20 @@
-body{
-    width: 300px;
-    height: 100px;
-    overflow: auto;
+body {
+  width: 300px;
+  height: 100px;
+  overflow: auto;
 }
-#app{
-    padding: 20px;
+
+#app {
+  padding: 20px;
 }
-.tips-item{
-    margin-bottom: 20px;
-    font-size: 20px;
+
+.tips-item {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.notLogin {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #f00;
 }
